@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<SqlConnectionFactory>();
 builder.Services.AddSingleton<PatientQueueRepository>();
+builder.Services.AddSingleton<ViewQueueRepository>();
 
 
 
@@ -33,6 +34,7 @@ var app = builder.Build();
 
 // Sử dụng CORS
 app.UseCors("AllowAngular");
+
 
 
 if (app.Environment.IsDevelopment())
