@@ -26,6 +26,33 @@ namespace backend.Controllers
             var rooms = await _repository.GetRoom();
             return Ok(rooms);
         }
+        [HttpGet("room/{id}")]
+        public async Task<IActionResult> GetRoomById(int id)
+        {
+            var room = await _repository.GetRoomById(id);
+            if (room == null)
+            {
+                return NotFound();
+            }
+            return Ok(room);
+        }
+        [HttpPost("next/{id}")]
+        public async Task<IActionResult> UpdateNextQueueByRoomId(int id)
+        {
+            var success = await _repository.UpdateNextPatientInQueueAsync(id);
+            if (!success)
+            {
+                return NotFound("Hàng chờ rỗng");
+            }
+
+            return Ok(true);
+        }
+        [HttpGet("queue/{roomId}")]
+        public async Task<IActionResult> GetQueueByRoomId(int roomId)
+        {
+            var result = await _repository.GetQueueByIdRoom(roomId);
+            return Ok(result);
+        }
 
     }
 }
